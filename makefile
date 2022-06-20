@@ -18,7 +18,11 @@ $(TARGET): $(OBJS)
 $(BINDIR)/obj/%.o: $(SRCDIR)/%.cpp
 	$(CXX) -c $< -o $@
 
-.PHONY: clean
+.PHONY: clean all
+
+all:
+	@if [ ! -d ${BINDIR} ]; then mkdir ${BINDIR} && mkdir ${BINDIR}/obj && mkdir ${BUILDDIR} ; fi
+	make $(TARGET)
 
 clean: 
 	rm -f $(OBJS)
