@@ -29,7 +29,7 @@ void Window::start(){
     GameObject asteroid("../assets/asteroid_100.png",renderer,10,SDL_Rect{250,50, 100,100},0);
 
 
-    while (is_running){
+    while (is_running && (window_init && renderer_init)){
         while(SDL_PollEvent(&event)){
             if(event.type==SDL_QUIT){
                 is_running=false;
