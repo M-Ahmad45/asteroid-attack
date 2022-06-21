@@ -10,7 +10,6 @@ GameObject::GameObject(const char* sprite, SDL_Renderer* renderer,
 }
  
 void GameObject::draw( SDL_Renderer* renderer){
-    SDL_RenderClear(renderer);
     SDL_RenderCopyEx(renderer,sprite_texture,NULL,&pos_size,direction,NULL, SDL_FLIP_NONE);
 }
 
