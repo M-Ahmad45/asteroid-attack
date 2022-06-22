@@ -2,6 +2,8 @@
 #include "../include/GameObject.hpp"
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 
 Window::Window(const char* name, int width, int height){
     window_init = false;
@@ -25,9 +27,16 @@ void Window::start(){
     SDL_Event event;
     bool is_running = true;
 
-    GameObject spaceship("../assets/spaceship.png", renderer, 2, SDL_Rect{100,100,64,64},90);
-    GameObject asteroid("../assets/asteroid_100.png",renderer,10,SDL_Rect{250,50, 100,100},0);
+    srand(time(0));
 
+    GameObject spaceship("../assets/spaceship.png", renderer, 2, SDL_FRect{100,100,64,64},90);
+
+    std::vector<GameObject> asteroids;
+    for(int i=0;i<10;i++){
+        
+        asteroids.push_back(GameObject("../assets/asteroid_100.png", renderer,2, SDL_FRect{100,100,64,64},0));
+        asteroids[i].set_pos(Vector2{rand()%320, rand()%240});
+    }
 
     while (is_running && (window_init && renderer_init)){
         while(SDL_PollEvent(&event)){
@@ -38,7 +47,9 @@ void Window::start(){
         SDL_SetRenderDrawColor(renderer,0,0,0,0);
         SDL_RenderClear(renderer);
         spaceship.draw(renderer);
-        asteroid.draw(renderer);
+        for(int i=0;i<10;i++){
+            asteroids[i].draw(renderer);
+        }
         SDL_RenderPresent(renderer);
     }
 }
