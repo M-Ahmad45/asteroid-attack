@@ -35,7 +35,8 @@ void Window::start(){
     for(int i=0;i<10;i++){
         
         asteroids.push_back(GameObject("../assets/asteroid_100.png", renderer,2, SDL_FRect{100,100,64,64},0));
-        asteroids[i].set_pos(Vector2{rand()%320, rand()%240});
+        asteroids[i].set_pos(Vector2{(float)(rand()%320), (float)(rand()%240)});
+        asteroids[i].set_velocity(Vector2{0.5f*(rand()%10), 0.5f*(rand()%10)});
     }
 
     while (is_running && (window_init && renderer_init)){
@@ -44,13 +45,16 @@ void Window::start(){
                 is_running=false;
             }
         }
-        SDL_SetRenderDrawColor(renderer,0,0,0,0);
+        SDL_SetRenderDrawColor(renderer,255,255,255,0);
         SDL_RenderClear(renderer);
         spaceship.draw(renderer);
         for(int i=0;i<10;i++){
             asteroids[i].draw(renderer);
         }
         SDL_RenderPresent(renderer);
+        for(int i=0;i<10;i++){
+            asteroids[i].update(0.1);
+        }
     }
 }
 
