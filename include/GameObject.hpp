@@ -12,22 +12,26 @@ public:
     GameObject(GameObject&& other);
     GameObject(const GameObject& other)=delete;
     GameObject& operator=(GameObject&& rhs);
+
     void draw(SDL_Renderer* renderer);
     void update(float delta_time);
     void set_pos(const Vector2& new_pos);
     void set_velocity(const Vector2& new_vel);
+
     bool collide(const GameObject& other);
     ~GameObject();
 
 private:
     inline void update_center();
     
-    Vector2 m_velocity;
     Vector2 m_center;
     int m_radius; //radius for the collision circle
-    double m_direction; //direction of the object
     SDL_FRect m_pos_size; //position of object and size of object
     SDL_Texture* m_sprite_texture;
+
+protected:
+    Vector2 m_velocity;
+    double m_sprite_rotation; //rotation factor for sprite
 };
 
 
