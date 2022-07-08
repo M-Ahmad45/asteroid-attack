@@ -7,9 +7,11 @@
 
 class GameObject{
 public:
+    GameObject();
     GameObject(const char* sprite,SDL_Renderer* renderer, int collision_radius, const SDL_FRect& pos_size, double direction);
     GameObject(GameObject&& other);
     GameObject(const GameObject& other)=delete;
+    GameObject& operator=(GameObject&& rhs);
     void draw(SDL_Renderer* renderer);
     void update(float delta_time);
     void set_pos(const Vector2& new_pos);

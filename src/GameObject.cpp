@@ -2,6 +2,11 @@
 #include "SDL2/SDL_image.h"
 #include <cmath>
 
+GameObject::GameObject(){
+    m_sprite_texture = NULL;
+}
+
+
 GameObject::GameObject(const char* sprite, SDL_Renderer* renderer,
                     int collision_radius, const SDL_FRect& pos_size, double direction)
                     :m_radius(collision_radius), m_pos_size(pos_size),m_direction(direction) {
@@ -36,6 +41,20 @@ GameObject::GameObject(GameObject&& other)
 
     other.m_sprite_texture=NULL;
 }
+
+GameObject& GameObject::operator=(GameObject&& rhs){    
+    m_sprite_texture = rhs.m_sprite_texture;
+    m_velocity = rhs.m_velocity;
+    m_pos_size = rhs.m_pos_size;
+    m_direction = rhs.m_direction;
+    m_radius = rhs.m_radius;
+    m_center = rhs.m_center;
+
+    rhs.m_sprite_texture = NULL;
+
+    return *this;
+}
+
 
 inline void GameObject::update_center(){
     m_center.x = (m_pos_size.x+m_pos_size.w)/2;
